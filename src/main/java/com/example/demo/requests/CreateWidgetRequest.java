@@ -5,32 +5,51 @@ import javax.validation.constraints.NotNull;
 
 public class CreateWidgetRequest {
 
-    private int x;
-
-    private int y;
-
-    private Integer z;
-
     @NotNull
     @Min(value = 1, message = "Height should be positive")
     private Integer height;
 
+    @NotNull
     @Min(value = 1, message = "Width should be positive")
-    private int width;
+    private Integer width;
 
-    public int getX() {
+    @NotNull
+    private Integer x;
+
+    @NotNull
+    private Integer y;
+
+    private Integer z;
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public Integer getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public Integer getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(Integer x) {
         this.x = x;
     }
 
-    public int getY() {
+    public Integer getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(Integer y) {
         this.y = y;
     }
 
@@ -40,21 +59,5 @@ public class CreateWidgetRequest {
 
     public void setZ(Integer z) {
         this.z = z;
-    }
-
-    public @Min(value = 1, message = "Height should be positive") Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(@Min(value = 1, message = "Height should be positive") Integer height) {
-        this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 }
