@@ -1,19 +1,33 @@
 package com.example.demo.responses;
 
+import java.time.OffsetDateTime;
+
 public class CreateWidgetResponse {
 
+    private long id;
     private int x;
     private int y;
     private int z;
-    private int height;
     private int width;
+    private int height;
+    private OffsetDateTime updatedDateTimeUtc;
 
-    public CreateWidgetResponse(int x, int y, int z, int height, int width) {
+    public CreateWidgetResponse(long id, int x, int y, int z, int width, int height, OffsetDateTime dateTime) {
+        this.id = id;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.height = height;
         this.width = width;
+        this.height = height;
+        this.updatedDateTimeUtc = dateTime;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getX() {
@@ -40,6 +54,14 @@ public class CreateWidgetResponse {
         this.z = z;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
     public int getHeight() {
         return height;
     }
@@ -48,11 +70,11 @@ public class CreateWidgetResponse {
         this.height = height;
     }
 
-    public int getWidth() {
-        return width;
+    public OffsetDateTime getUpdatedDateTimeUtc() {
+        return updatedDateTimeUtc;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setUpdatedDateTimeUtc(OffsetDateTime updatedDateTimeUtc) {
+        this.updatedDateTimeUtc = updatedDateTimeUtc;
     }
 }

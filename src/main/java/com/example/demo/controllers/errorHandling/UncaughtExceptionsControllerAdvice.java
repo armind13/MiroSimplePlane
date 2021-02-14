@@ -2,6 +2,7 @@ package com.example.demo.controllers.errorHandling;
 
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,19 @@ public class UncaughtExceptionsControllerAdvice {
         return processFieldErrors(fieldErrors);
     }
 
-    private Error processFieldErrors(List<org.springframework.validation.FieldError> fieldErrors) {
+    @ResponseStatus(BAD_REQUEST)
+    @ResponseBody
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public Error methodParameterNotFoundException(MissingServletRequestParameterException ex){
+
+        var fieldError = new FieldError("parameter", ex.getParameterName(), ex.getMessage());
+        var errorList = new ArrayList<FieldError>();
+        errorList.add(fieldError);
+
+        return processFieldErrors(errorList);
+    }
+
+    private Error processFieldErrors(List<FieldError> fieldErrors) {
         var error = new Error(BAD_REQUEST.value(), "validation error");
 
         for (var fieldError: fieldErrors) {
