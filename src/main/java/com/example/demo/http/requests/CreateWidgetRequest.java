@@ -1,4 +1,4 @@
-package com.example.demo.requests;
+package com.example.demo.http.requests;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

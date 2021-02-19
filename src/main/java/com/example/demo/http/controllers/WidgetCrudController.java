@@ -1,8 +1,8 @@
-package com.example.demo.controllers;
+package com.example.demo.http.controllers;
 
-import com.example.demo.requests.CreateWidgetRequest;
-import com.example.demo.requests.UpdateWidgetRequest;
-import com.example.demo.responses.*;
+import com.example.demo.http.requests.CreateWidgetRequest;
+import com.example.demo.http.requests.UpdateWidgetRequest;
+import com.example.demo.http.responses.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

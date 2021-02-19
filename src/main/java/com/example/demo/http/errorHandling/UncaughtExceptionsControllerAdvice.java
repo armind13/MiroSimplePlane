@@ -1,4 +1,4 @@
-package com.example.demo.controllers.errorHandling;
+package com.example.demo.http.errorHandling;
 
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

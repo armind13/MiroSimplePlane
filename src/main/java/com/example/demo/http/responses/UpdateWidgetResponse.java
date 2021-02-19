@@ -1,8 +1,8 @@
-package com.example.demo.responses;
+package com.example.demo.http.responses;
 
 import java.time.OffsetDateTime;
 
-public class WidgetResponseModel {
+public class UpdateWidgetResponse {
 
     private long id;
     private int x;
@@ -12,14 +12,14 @@ public class WidgetResponseModel {
     private int height;
     private OffsetDateTime updatedDateTimeUtc;
 
-    public WidgetResponseModel(long id, int x, int y, int z, int width, int height, OffsetDateTime updatedDateTimeUtc) {
+    public UpdateWidgetResponse(long id, int x, int y, int z, int width, int height, OffsetDateTime dateTime) {
         this.id = id;
         this.x = x;
         this.y = y;
         this.z = z;
         this.width = width;
         this.height = height;
-        this.updatedDateTimeUtc = updatedDateTimeUtc;
+        this.updatedDateTimeUtc = dateTime;
     }
 
     public long getId() {

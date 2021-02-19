@@ -1,4 +1,4 @@
-package com.example.demo.responses;
+package com.example.demo.http.responses;
 
 public class GetAllWidgetsResponse {
 
