@@ -1,5 +1,6 @@
 package com.example.demo.http.errorHandling;
 
+import com.example.demo.storage.NotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 public class UncaughtExceptionsControllerAdvice {
@@ -28,13 +30,28 @@ public class UncaughtExceptionsControllerAdvice {
     @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public Error methodParameterNotFoundException(MissingServletRequestParameterException ex){
+    public Error methodParameterNotFoundException(MissingServletRequestParameterException ex) {
 
         var fieldError = new FieldError("parameter", ex.getParameterName(), ex.getMessage());
         var errorList = new ArrayList<FieldError>();
         errorList.add(fieldError);
 
         return processFieldErrors(errorList);
+    }
+
+    @ResponseStatus(NOT_FOUND)
+    @ResponseBody
+    @ExceptionHandler(NotFoundException.class)
+    public Error idNotFound(NotFoundException ex) {
+        var error = new Error(NOT_FOUND.value(), "not found");
+
+        var isIdExists = ex.getId() != null;
+        var message = isIdExists ? ex.getMessage() : "Does not any widgets exist";
+        var value = isIdExists ? ex.getId() : null;
+
+        error.addFieldError("id", message, value);
+
+        return error;
     }
 
     private Error processFieldErrors(List<FieldError> fieldErrors) {
@@ -50,7 +67,7 @@ public class UncaughtExceptionsControllerAdvice {
     static class Error {
         private final int status;
         private final String message;
-        private List<FieldError> fieldErrors = new ArrayList<>();
+        private List<FieldError> errors = new ArrayList<>();
 
         Error(int status, String message) {
             this.status = status;
@@ -73,11 +90,11 @@ public class UncaughtExceptionsControllerAdvice {
                     null,
                     null,
                     message);
-            fieldErrors.add(error);
+            errors.add(error);
         }
 
-        public List<FieldError> getFieldErrors() {
-            return fieldErrors;
+        public List<FieldError> getErrors() {
+            return errors;
         }
     }
 }
