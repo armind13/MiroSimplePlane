@@ -29,6 +29,13 @@ public class UrlHelper {
         return createUrl(port, "get-all");
     }
 
+    public static String getDeleteUrl(int port, Long id) {
+        var url = createUrl(port, "delete");
+        if (id == null)
+            return url;
+        return url + "?id=" + id;
+    }
+
     public static String getDeleteUrl(int port) {
         return createUrl(port, "delete");
     }
