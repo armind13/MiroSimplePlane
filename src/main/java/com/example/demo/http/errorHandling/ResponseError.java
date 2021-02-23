@@ -1,7 +1,5 @@
 package com.example.demo.http.errorHandling;
 
-import org.springframework.validation.FieldError;
-
 import java.util.ArrayList;
 import java.util.List;
 

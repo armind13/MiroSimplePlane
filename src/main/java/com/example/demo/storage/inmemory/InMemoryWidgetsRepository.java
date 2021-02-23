@@ -26,7 +26,7 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
         widgets = new HashMap<>();
     }
 
-    public WidgetModel add(int x, int y, int width, int height, Integer zIndex) {
+    public WidgetModel add(int x, int y, Integer zIndex, int width, int height) {
         var utcNow = dateTimeProvider.GetNow();
 
         lock.writeLock().lock();

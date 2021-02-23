@@ -27,7 +27,7 @@ class InMemoryWidgetsRepositoryTests {
         var height = random.nextInt();
         var zIndex = random.nextInt();
 
-        var widget = repo.add(x, y, width, height, zIndex);
+        var widget = repo.add(x, y, zIndex, width, height);
 
         assertThat(widget.getX()).isEqualTo(x);
         assertThat(widget.getY()).isEqualTo(y);
@@ -41,8 +41,8 @@ class InMemoryWidgetsRepositoryTests {
         var repo = new InMemoryWidgetsRepository(new DateTimeProvider());
         var zIndex = random.nextInt();
 
-        repo.add(random.nextInt(), random.nextInt(), random.nextInt(), random.nextInt(), zIndex);
-        var w2 = repo.add(random.nextInt(), random.nextInt(), random.nextInt(), random.nextInt(), null);
+        repo.add(random.nextInt(), random.nextInt(), zIndex, random.nextInt(), random.nextInt());
+        var w2 = repo.add(random.nextInt(), random.nextInt(), null, random.nextInt(), random.nextInt());
 
         assertThat(w2.getZIndex()).isEqualTo(zIndex + 1);
     }
@@ -106,7 +106,7 @@ class InMemoryWidgetsRepositoryTests {
         int width = random.nextInt();
         int height = random.nextInt();
         int zIndex = random.nextInt();
-        var widget = repo.add(x, y, width, height, zIndex);
+        var widget = repo.add(x, y, zIndex, width, height);
 
         assertThat(widget.getX()).isEqualTo(x);
         assertThat(widget.getY()).isEqualTo(y);

@@ -33,9 +33,10 @@ public class WidgetCrudController {
         var widget = repository.add(
                 request.getX(),
                 request.getY(),
+                request.getZIndex(),
                 request.getWidth(),
-                request.getHeight(),
-                request.getZIndex());
+                request.getHeight()
+        );
 
         var response = new CreateWidgetResponse(
                 widget.getId(),
