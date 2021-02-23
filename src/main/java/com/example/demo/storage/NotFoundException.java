@@ -20,6 +20,6 @@ public class NotFoundException extends Exception {
         if (id != null)
             return "Id " + id + " not found";
 
-        return "Widgets does not exist";
+        return "Repository is empty";
     }
 }

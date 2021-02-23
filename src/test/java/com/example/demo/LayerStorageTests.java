@@ -27,7 +27,6 @@ class LayerStorageTests {
 
     @Test
     void add_WhenNewWidgetHasGreaterZIndex_ShouldAddAfter() {
-
         var id1 = 1;
         var id2 = 2;
         var storage = new LayerStorage();
@@ -43,7 +42,6 @@ class LayerStorageTests {
 
     @Test
     void add_WhenNewWidgetHasLessZIndex_ShouldAddAfter() {
-
         var id1 = 1;
         var id2 = 2;
         var storage = new LayerStorage();
@@ -59,7 +57,6 @@ class LayerStorageTests {
 
     @Test
     void add_WhenNewWidgetHasEqualZIndex_ShouldAddAfter() {
-
         var id1 = 1;
         var id2 = 2;
         var storage = new LayerStorage();
@@ -76,7 +73,6 @@ class LayerStorageTests {
 
     @Test
     void add_WhenNewWidgetHasEqualZIndex_And_NeedFewShifts_ShouldShift() {
-
         var id1 = 1;
         var id2 = 2;
         var id3 = 3;
@@ -154,3 +150,4 @@ class LayerStorageTests {
         return widget;
     }
 }
+
