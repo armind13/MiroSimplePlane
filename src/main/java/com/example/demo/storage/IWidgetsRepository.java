@@ -5,5 +5,5 @@ public interface IWidgetsRepository {
     WidgetModel update(long id, Integer x, Integer y, Integer width, Integer height, Integer zIndex) throws NotFoundException;
     WidgetModel get(long id) throws NotFoundException;
     WidgetModel[] getAll() throws NotFoundException;
-    void delete(long id) throws NotFoundException;
+    void delete(long id);
 }

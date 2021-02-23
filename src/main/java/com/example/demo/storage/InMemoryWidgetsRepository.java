@@ -79,8 +79,9 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
         return allWidgets;
     }
 
-    public void delete(long id) throws NotFoundException {
-        ThrowIfNotExists(id);
+    public void delete(long id) {
+        if (!widgets.containsKey(id))
+            return;
 
         var widget = widgets.get(id);
         layerStorage.delete(widget.getZIndex());

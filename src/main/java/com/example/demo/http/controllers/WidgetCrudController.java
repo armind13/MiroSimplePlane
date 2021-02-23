@@ -109,7 +109,7 @@ public class WidgetCrudController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<DeleteWidgetResponse> delete(@RequestParam @NotNull Long id) throws NotFoundException {
+    public ResponseEntity<DeleteWidgetResponse> delete(@RequestParam @NotNull Long id) {
 
         repository.delete(id);
 

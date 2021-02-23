@@ -139,19 +139,6 @@ class InMemoryWidgetsRepositoryTests {
     }
 
     @Test
-    void delete_WhenWidgetDoesNotExist_ShouldThrow() {
-        var repo = new InMemoryWidgetsRepository(new DateTimeProvider());
-
-        var id = random.nextLong();
-        var exception = assertThrows(
-                NotFoundException.class,
-                () -> repo.delete(id)
-        );
-
-        assertThat(exception.getId()).isEqualTo(id);
-    }
-
-    @Test
     void delete_WhenWidgetExists_ShouldDelete() throws NotFoundException {
         var repo = new InMemoryWidgetsRepository(new DateTimeProvider());
 

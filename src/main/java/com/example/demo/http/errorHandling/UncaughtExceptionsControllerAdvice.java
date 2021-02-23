@@ -21,7 +21,7 @@ public class UncaughtExceptionsControllerAdvice {
     @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Error methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+    public ResponseError methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         var result = ex.getBindingResult();
         var fieldErrors = result.getFieldErrors();
         return processFieldErrors(fieldErrors);
@@ -30,7 +30,7 @@ public class UncaughtExceptionsControllerAdvice {
     @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public Error methodParameterNotFoundException(MissingServletRequestParameterException ex) {
+    public ResponseError methodParameterNotFoundException(MissingServletRequestParameterException ex) {
 
         var fieldError = new FieldError("parameter", ex.getParameterName(), ex.getMessage());
         var errorList = new ArrayList<FieldError>();
@@ -42,8 +42,8 @@ public class UncaughtExceptionsControllerAdvice {
     @ResponseStatus(NOT_FOUND)
     @ResponseBody
     @ExceptionHandler(NotFoundException.class)
-    public Error idNotFound(NotFoundException ex) {
-        var error = new Error(NOT_FOUND.value(), "not found");
+    public ResponseError idNotFound(NotFoundException ex) {
+        var error = new ResponseError(NOT_FOUND.value(), "not found");
 
         var isIdExists = ex.getId() != null;
         var message = isIdExists ? ex.getMessage() : "Does not any widgets exist";
@@ -54,8 +54,8 @@ public class UncaughtExceptionsControllerAdvice {
         return error;
     }
 
-    private Error processFieldErrors(List<FieldError> fieldErrors) {
-        var error = new Error(BAD_REQUEST.value(), "validation error");
+    private ResponseError processFieldErrors(List<FieldError> fieldErrors) {
+        var error = new ResponseError(BAD_REQUEST.value(), "validation error");
 
         for (var fieldError: fieldErrors) {
             error.addFieldError(fieldError.getField(), fieldError.getDefaultMessage(), fieldError.getRejectedValue());
@@ -63,38 +63,5 @@ public class UncaughtExceptionsControllerAdvice {
 
         return error;
     }
-
-    static class Error {
-        private final int status;
-        private final String message;
-        private List<FieldError> errors = new ArrayList<>();
-
-        Error(int status, String message) {
-            this.status = status;
-            this.message = message;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void addFieldError(String path, String message, Object rejectedValue) {
-            var error = new FieldError("request",
-                    path,
-                    rejectedValue,
-                    false,
-                    null,
-                    null,
-                    message);
-            errors.add(error);
-        }
-
-        public List<FieldError> getErrors() {
-            return errors;
-        }
-    }
 }
+
