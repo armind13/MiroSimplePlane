@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.integration;
 
 import com.example.demo.http.responses.*;
 import org.jeasy.random.EasyRandom;

@@ -1,6 +1,6 @@
-package com.example.demo;
+package com.example.demo.unit;
 
-import com.example.demo.storage.LayerStorage;
+import com.example.demo.storage.inmemory.LayerStorage;
 import com.example.demo.storage.WidgetModel;
 import org.junit.jupiter.api.Test;
 

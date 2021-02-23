@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.integration;
 
 import com.example.demo.http.errorHandling.ResponseError;
 import org.jeasy.random.EasyRandom;

@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.integration;
 
 import java.net.MalformedURLException;
 import java.net.URL;
