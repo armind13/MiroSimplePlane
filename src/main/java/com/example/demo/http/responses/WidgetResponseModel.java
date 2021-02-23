@@ -7,16 +7,16 @@ public class WidgetResponseModel {
     private long id;
     private int x;
     private int y;
-    private int z;
+    private int zIndex;
     private int width;
     private int height;
     private OffsetDateTime updatedDateTimeUtc;
 
-    public WidgetResponseModel(long id, int x, int y, int z, int width, int height, OffsetDateTime updatedDateTimeUtc) {
+    public WidgetResponseModel(long id, int x, int y, int zIndex, int width, int height, OffsetDateTime updatedDateTimeUtc) {
         this.id = id;
         this.x = x;
         this.y = y;
-        this.z = z;
+        this.zIndex = zIndex;
         this.width = width;
         this.height = height;
         this.updatedDateTimeUtc = updatedDateTimeUtc;
@@ -46,12 +46,12 @@ public class WidgetResponseModel {
         this.y = y;
     }
 
-    public int getZ() {
-        return z;
+    public int getZIndex() {
+        return zIndex;
     }
 
-    public void setZ(int z) {
-        this.z = z;
+    public void setZIndex(int zIndex) {
+        this.zIndex = zIndex;
     }
 
     public int getWidth() {

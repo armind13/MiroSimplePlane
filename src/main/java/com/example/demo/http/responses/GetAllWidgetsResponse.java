@@ -4,6 +4,10 @@ public class GetAllWidgetsResponse {
 
     private WidgetResponseModel[] widgets;
 
+    public GetAllWidgetsResponse() {
+        this.widgets = null;
+    }
+
     public GetAllWidgetsResponse(WidgetResponseModel[] widgets) {
         this.widgets = widgets;
     }

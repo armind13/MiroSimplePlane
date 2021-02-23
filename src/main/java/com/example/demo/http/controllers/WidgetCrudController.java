@@ -35,7 +35,7 @@ public class WidgetCrudController {
                 request.getY(),
                 request.getWidth(),
                 request.getHeight(),
-                request.getZ());
+                request.getZIndex());
 
         var response = new CreateWidgetResponse(
                 widget.getId(),
@@ -52,14 +52,17 @@ public class WidgetCrudController {
     @PostMapping("/update")
     public ResponseEntity<UpdateWidgetResponse> update(@Valid @RequestBody UpdateWidgetRequest request) throws NotFoundException {
 
-        var widget = repository.update(request.getId(),
+        var widget = repository.update(
+                request.getId(),
                 request.getX(),
                 request.getY(),
+                request.getZIndex(),
                 request.getWidth(),
-                request.getHeight(),
-                request.getZIndex());
+                request.getHeight()
+        );
 
-        var response = new UpdateWidgetResponse(widget.getId(),
+        var response = new UpdateWidgetResponse(
+                widget.getId(),
                 widget.getX(),
                 widget.getY(),
                 widget.getZIndex(),
@@ -94,7 +97,8 @@ public class WidgetCrudController {
         var models = new WidgetResponseModel[widgets.length];
         for (int i = 0; i < widgets.length; i++) {
             var widget = widgets[i];
-            var model = new WidgetResponseModel(widget.getId(),
+            var model = new WidgetResponseModel(
+                    widget.getId(),
                     widget.getX(),
                     widget.getY(),
                     widget.getZIndex(),

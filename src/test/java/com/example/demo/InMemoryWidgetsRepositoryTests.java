@@ -74,7 +74,7 @@ class InMemoryWidgetsRepositoryTests {
         int width = random.nextInt();
         int height = random.nextInt();
         int zIndex = random.nextInt();
-        repo.update(widget.getId(), x, y, width, height, zIndex);
+        repo.update(widget.getId(), x, y, zIndex, width, height);
 
         assertThat(widget.getX()).isEqualTo(x);
         assertThat(widget.getY()).isEqualTo(y);

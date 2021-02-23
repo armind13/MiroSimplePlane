@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.http.errorHandling.ResponseError;
+import org.jeasy.random.EasyRandom;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;

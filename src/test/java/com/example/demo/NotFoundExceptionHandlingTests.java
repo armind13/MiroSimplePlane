@@ -16,7 +16,7 @@ import org.springframework.http.MediaType;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class NotFoundExceptionHandlingTests {
 
     @LocalServerPort
@@ -50,14 +50,4 @@ public class NotFoundExceptionHandlingTests {
 
         assertThat(responseEntity.getStatusCode().value(), is(404));
     }
-
-    @Test
-    void getAll_WhenRepositoryIsEmpty_ShouldReturnNotFound() {
-        var url = UrlHelper.getGetAllUrl(port);
-        var responseEntity = restTemplate.getForEntity(url, ResponseError.class);
-        var errors = responseEntity.getBody().getErrors();
-
-        assertThat(responseEntity.getStatusCode().value(), is(404));
-    }
-
 }

@@ -11,7 +11,7 @@ public class CreateWidgetRequest {
     @NotNull
     private Integer y;
 
-    private Integer z;
+    private Integer zIndex;
 
     @NotNull
     @Min(value = 1, message = "Width should be positive")
@@ -37,12 +37,12 @@ public class CreateWidgetRequest {
         this.y = y;
     }
 
-    public Integer getZ() {
-        return z;
+    public Integer getZIndex() {
+        return zIndex;
     }
 
-    public void setZ(Integer z) {
-        this.z = z;
+    public void setZIndex(Integer zIndex) {
+        this.zIndex = zIndex;
     }
 
     public Integer getWidth() {

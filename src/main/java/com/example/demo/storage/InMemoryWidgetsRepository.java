@@ -37,7 +37,7 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
         return widget;
     }
 
-    public WidgetModel update(long id, Integer x, Integer y, Integer width, Integer height, Integer zIndex) throws NotFoundException {
+    public WidgetModel update(long id, Integer x, Integer y, Integer zIndex, Integer width, Integer height) throws NotFoundException {
         ThrowIfNotExists(id);
 
         var updateTime = dateTimeProvider.GetNow();
@@ -47,12 +47,12 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
             widget.setX(x);
         if (y != null)
             widget.setY(y);
+        if (zIndex != null)
+            layerStorage.update(widget.getZIndex(), zIndex);
         if (width != null)
             widget.setWidth(width);
         if (height != null)
             widget.setHeight(height);
-        if (zIndex != null)
-            layerStorage.update(widget.getZIndex(), zIndex);
 
         widget.setUpdatedDateTimeUtc(updateTime);
 
