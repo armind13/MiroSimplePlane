@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.http.errorHandling.ResponseError;
-import com.example.demo.http.responses.DeleteWidgetResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,25 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
-
-import java.util.HashMap;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RequestValidationTests {
+
+    private static HttpHeaders headers;
 
     @LocalServerPort
     private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    private static HttpHeaders headers;
 
     @BeforeAll
     public static void runBeforeAllTestMethods() {
@@ -43,7 +43,8 @@ public class RequestValidationTests {
         var obj = new JSONObject();
         var request = new HttpEntity<>(obj.toString(), headers);
 
-        var responseEntity = restTemplate.postForEntity(getCreateUrl(), request, ResponseError.class);
+        var url = UrlHelper.getCreateUrl(port);
+        var responseEntity = restTemplate.postForEntity(url, request, ResponseError.class);
         var errors = responseEntity.getBody().getErrors();
 
         assertThat(responseEntity.getStatusCode().value(), is(400));
@@ -66,7 +67,8 @@ public class RequestValidationTests {
                 .put("height", size);
         var request = new HttpEntity<>(obj.toString(), headers);
 
-        var responseEntity = restTemplate.postForEntity(getCreateUrl(), request, ResponseError.class);
+        var url = UrlHelper.getCreateUrl(port);
+        var responseEntity = restTemplate.postForEntity(url, request, ResponseError.class);
         var errors = responseEntity.getBody().getErrors();
 
         assertThat(responseEntity.getStatusCode().value(), is(400));
@@ -81,7 +83,8 @@ public class RequestValidationTests {
         var obj = new JSONObject();
         var request = new HttpEntity<>(obj.toString(), headers);
 
-        var responseEntity = restTemplate.postForEntity(getUpdateUrl(), request, ResponseError.class);
+        var url = UrlHelper.getUpdateUrl(port);
+        var responseEntity = restTemplate.postForEntity(url, request, ResponseError.class);
         var errors = responseEntity.getBody().getErrors();
 
         assertThat(responseEntity.getStatusCode().value(), is(400));
@@ -99,7 +102,8 @@ public class RequestValidationTests {
                 .put("height", size);
         var request = new HttpEntity<>(obj.toString(), headers);
 
-        var responseEntity = restTemplate.postForEntity(getUpdateUrl(), request, ResponseError.class);
+        var url = UrlHelper.getUpdateUrl(port);
+        var responseEntity = restTemplate.postForEntity(url, request, ResponseError.class);
         var errors = responseEntity.getBody().getErrors();
 
         assertThat(responseEntity.getStatusCode().value(), is(400));
@@ -111,7 +115,8 @@ public class RequestValidationTests {
 
     @Test
     void get_WhenWidgetIdNotSpecified_ShouldRespondWithNotNullRestriction() {
-        var responseEntity = restTemplate.getForEntity(getGetUrl(), ResponseError.class);
+        var url = UrlHelper.getGetUrl(port);
+        var responseEntity = restTemplate.getForEntity(url, ResponseError.class);
         var errors = responseEntity.getBody().getErrors();
 
         assertThat(responseEntity.getStatusCode().value(), is(400));
@@ -121,7 +126,8 @@ public class RequestValidationTests {
 
     @Test
     void delete_WhenWidgetIdNotSpecified_ShouldRespondWithNotNullRestriction() {
-        var responseEntity = restTemplate.exchange(getDeleteUrl(), HttpMethod.DELETE, null, ResponseError.class);
+        var url = UrlHelper.getDeleteUrl(port);
+        var responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, ResponseError.class);
         var errors = responseEntity.getBody().getErrors();
 
         assertThat(responseEntity.getStatusCode().value(), is(400));
@@ -129,19 +135,5 @@ public class RequestValidationTests {
         assertThat(errors, hasSize(1));
     }
 
-    private String getCreateUrl() {
-        return "http://localhost:" + port + "/widget/create";
-    }
 
-    private String getUpdateUrl() {
-        return "http://localhost:" + port + "/widget/update";
-    }
-
-    private String getGetUrl() {
-        return "http://localhost:" + port + "/widget/get";
-    }
-
-    private String getDeleteUrl() {
-        return "http://localhost:" + port + "/widget/delete";
-    }
 }

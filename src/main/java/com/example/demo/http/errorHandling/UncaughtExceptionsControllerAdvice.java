@@ -46,7 +46,7 @@ public class UncaughtExceptionsControllerAdvice {
         var error = new ResponseError(NOT_FOUND.value(), "not found");
 
         var isIdExists = ex.getId() != null;
-        var message = isIdExists ? ex.getMessage() : "Does not any widgets exist";
+        var message = isIdExists ? ex.toString() : "Does not any widgets exist";
         var value = isIdExists ? ex.getId() : null;
 
         error.addFieldError("id", message, value);
