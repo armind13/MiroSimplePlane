@@ -5,45 +5,46 @@ import java.util.TreeSet;
 
 public class LayerStorage {
 
-    private TreeSet<Integer> layersSet = new TreeSet<>();
+    private final TreeSet<Integer> layersSet = new TreeSet<>();
 
-    private HashMap<Integer, ILayerUpdater> relations = new HashMap<>();
+    private final HashMap<Integer, ILayerUpdater> relations = new HashMap<>();
 
-    public void Add(ILayerUpdater updater, int zIndex) {
+    public void add(ILayerUpdater updater, int zIndex) {
         var toInsert = updater;
         var currentIndex = zIndex;
 
         while (relations.containsKey(currentIndex)) {
             var temp = relations.get(currentIndex);
 
-            relations.put(zIndex, toInsert);
-            toInsert.setZIndex(zIndex);
+            relations.put(currentIndex, toInsert);
+            toInsert.setZIndex(currentIndex);
             currentIndex++;
             toInsert = temp;
         }
 
-        layersSet.add(zIndex);
-        relations.put(zIndex, updater);
-        updater.setZIndex(zIndex);
+        layersSet.add(currentIndex);
+        relations.put(currentIndex, toInsert);
+        toInsert.setZIndex(currentIndex);
     }
 
-    public void Delete(int zIndex) {
-        if (relations.containsKey(zIndex)) {
-            relations.remove(zIndex);
-            layersSet.remove(zIndex);
-        }
+    public void delete(int zIndex) {
+        if (!relations.containsKey(zIndex))
+            return;
+
+        relations.remove(zIndex);
+        layersSet.remove(zIndex);
     }
 
-    public void Update(int from, int to) {
+    public void update(int from, int to) {
         if (!relations.containsKey(from))
             return;
 
         var updater = relations.get(from);
-        Delete(from);
-        Add(updater, to);
+        delete(from);
+        add(updater, to);
     }
 
-    public long[] GetOrderedId() {
+    public long[] getOrderedId() {
         var ids = new long[layersSet.size()];
 
         var i = 0;
@@ -54,10 +55,10 @@ public class LayerStorage {
         return ids;
     }
 
-    public int GetMaxZIndex() {
-        if (layersSet.size() > 0)
-            return layersSet.last();
-        return 0;
+    public int getMaxZIndex() {
+        return layersSet.size() > 0
+                ? layersSet.last()
+                : 0;
     }
 }
 

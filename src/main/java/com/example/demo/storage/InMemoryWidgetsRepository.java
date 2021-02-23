@@ -27,11 +27,11 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
         var widget = new WidgetModel(currentId, x, y, width, height, utcNow);
 
         if (zIndex == null)
-            zIndex = layerStorage.GetMaxZIndex() + 1;
+            zIndex = layerStorage.getMaxZIndex() + 1;
 
         widget.setZIndex(zIndex);
 
-        layerStorage.Add(widget, zIndex);
+        layerStorage.add(widget, zIndex);
         widgets.put(currentId, widget);
 
         return widget;
@@ -51,9 +51,8 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
             widget.setWidth(width);
         if (height != null)
             widget.setHeight(height);
-        if (zIndex != null){
-            layerStorage.Update(widget.getZIndex(), zIndex);
-        }
+        if (zIndex != null)
+            layerStorage.update(widget.getZIndex(), zIndex);
 
         widget.setUpdatedDateTimeUtc(updateTime);
 
@@ -68,7 +67,7 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
 
     public WidgetModel[] getAll() throws NotFoundException {
 
-        var ids = layerStorage.GetOrderedId();
+        var ids = layerStorage.getOrderedId();
         if (ids.length == 0)
             throw new NotFoundException();
 
@@ -84,7 +83,7 @@ public class InMemoryWidgetsRepository implements IWidgetsRepository {
         ThrowIfNotExists(id);
 
         var widget = widgets.get(id);
-        layerStorage.Delete(widget.getZIndex());
+        layerStorage.delete(widget.getZIndex());
         widgets.remove(id);
     }
 
